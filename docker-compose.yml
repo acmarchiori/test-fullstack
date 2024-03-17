@@ -1,0 +1,22 @@
+version: '3.9'
+
+services:
+  backend:
+    image: backend
+    build:
+      context: ./backend/client-management-api
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./backend/client-management-api:/app-backend
+
+  frontend:
+    image: frontend
+    build:
+      context: ./frontend/client-management
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend/client-management:/app-frontend

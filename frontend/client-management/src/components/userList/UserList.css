@@ -1,0 +1,68 @@
+.client-info {
+    color: #b3b3b3;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #e6e6e6; /* Adiciona uma borda cinza */
+    padding: 20px; /* Espaçamento interno */
+    margin: 0 150px; /* Margens laterais */
+    margin-bottom: 25px;
+  }
+  
+  .first-column,
+  .second-column,
+  .third-column {
+    flex: 1; /* Cada coluna ocupa a mesma largura */
+  }
+
+  .status-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 10px; 
+  }  
+  
+  /* Defina as cores para cada status */
+  .status-dot.active {
+    background-color: green;
+  }
+  
+  .status-dot.inactive {
+    background-color: red;
+  }
+  
+  .status-dot.awaiting-activation {
+    background-color: yellow;
+  }
+  
+  .status-dot.disabled {
+    background-color: #b3b3b3;
+  }
+  
+  .edit-button {
+    background-color: white;
+    color: #DF9408;
+    border: 1px solid #DF9408; /* Adiciona uma borda laranja */
+    border-radius: 5px;
+    font-size: 16px;
+    padding: 12px 40px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.3s, color 0.3s; /* Transição suave */
+  }
+  
+  .edit-button:hover {
+    background-color: #DF9408; /* Ao passar o mouse, fundo laranja */
+    color: white; /* Ao passar o mouse, texto branco */
+  }
+  
+  .edit-button:hover {
+    cursor: pointer; /* Ao passar o mouse, cursor de mãozinha */
+  }
+
+  .strong {
+    color: #7a7a7a;
+    font-weight: 550;
+  }
+  

@@ -1,0 +1,29 @@
+.user-info-container {
+    display: flex;
+    flex-direction: column; /* Empilha os elementos verticalmente */
+    margin: 0 150px; /* Margens laterais */
+  }
+  
+  .user-info {
+    display: flex;
+    margin-top: 100px;
+    margin-bottom: 30px; /* Margem inferior */
+  }
+  
+  .user-icon {
+    width: 36px; /* Largura do ícone */
+    margin-right: 30px; /* Margem à direita para separar o ícone do texto */
+  }
+  
+  .user-info-title {
+    margin: 0; /* Remove as margens padrão do h1 */
+    font-weight: 375;
+  }
+  
+  .divider {
+    width: 100%; /* Define a largura total */
+    border: none; /* Remove a borda padrão */
+    border-top: 1px solid #e0e0e0; /* Adiciona uma linha horizontal */
+    margin-top: 10px; /* Margem superior para separar do conteúdo anterior */
+  }
+  

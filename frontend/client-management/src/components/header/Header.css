@@ -1,0 +1,16 @@
+.header {
+        background-color: #333; /* Cor de fundo da barra cinza escura */
+        padding: 20px; /* Espaçamento interno */
+    }
+    
+    .header__logo-container {
+        text-align: center; /* Centraliza o logo */
+        
+    }
+    
+    .header__logo {
+        width: 100px; /* Largura do logo */
+        height: auto; /* Altura ajustável */
+        cursor: pointer; /* Altera o cursor para uma mãozinha */
+    }
+    
