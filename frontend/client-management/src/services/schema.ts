@@ -1,5 +1,11 @@
 import * as yup from 'yup'
 
+/**
+ * Formata um número de telefone para o formato (XX)XXXXX-XXXX celular ou (XX)XXXX-XXXX fixo.
+ *
+ * @param telefone O número de telefone a ser formatado.
+ * @returns O número de telefone formatado.
+ */
 export function formatarTelefone (telefone: string): string {
   // Remove tudo o que não é dígito
   let numeros: string = telefone.replace(/\D/g, '')

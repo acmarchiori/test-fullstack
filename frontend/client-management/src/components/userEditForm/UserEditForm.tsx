@@ -6,6 +6,9 @@ import { getClientById, createClient, updateClient } from '../../services/api'
 import { schema, formatarTelefone } from '../../services/schema'
 import './UserEditForm.css'
 
+/**
+ * Componente responsável pelo formulário de edição e criação de clientes.
+ */
 const UserEditForm: React.FC = () => {
   const history = useHistory()
   const { id } = useParams<{ id: string }>()
@@ -20,6 +23,9 @@ const UserEditForm: React.FC = () => {
   })
 
   useEffect(() => {
+    /**
+     * Função assíncrona para buscar os dados do cliente pelo ID.
+     */
     const fetchData = async (): Promise<void> => {
       try {
         if (id !== undefined && id !== null && id !== '') {
@@ -35,6 +41,9 @@ const UserEditForm: React.FC = () => {
     fetchData().catch(() => {})
   }, [id])
 
+  /**
+   * Formik hook para controle do formulário.
+   */
   const formik = useFormik({
     initialValues: {
       nome: '',
@@ -60,102 +69,135 @@ const UserEditForm: React.FC = () => {
     }
   })
 
+  /**
+ * Hook useEffect utilizado para atualizar os valores do formulário do usuário.
+ * Este hook é acionado sempre que há uma mudança nos dados do cliente (`clientData`) ou
+ * quando a função `formik.setValues` é alterada.
+ */
   useEffect(() => {
+  // Função assíncrona para configurar os valores do formulário com os dados do cliente
     const setFormValues = async (): Promise<void> => {
+    // Verifica se os dados do cliente são válidos
       if (clientData !== null && clientData !== undefined) {
+      // Define os valores do formulário com os dados do cliente
         await formik.setValues(clientData)
       }
     }
+
+    // Invoca a função para definir os valores do formulário
     void (async () => {
       await setFormValues()
     })()
-  }, [clientData, formik.setValues])
+  }, [clientData, formik.setValues]) // Dependências do hook useEffect
 
+  // Renderiza uma mensagem de carregamento enquanto os dados estão sendo buscados
   if (loading) {
     return <div>Carregando...</div>
   }
 
+  // Renderiza o formulário de edição ou criação de usuário
   return (
-    <div className='user-edit-form'>
-      <h2>{id != null ? 'Editar Usuário' : 'Novo Usuário'}</h2>
-      <p>Informe os campos a seguir para {id != null ? 'editar um usuário:' : 'criar um novo usuário:'}</p>
-      <form onSubmit={formik.handleSubmit}>
-        <div>
+  <div className='user-edit-form'>
+    {/* Título do formulário: "Editar Usuário" se houver um ID definido, senão "Novo Usuário" */}
+    <h2>{id != null ? 'Editar Usuário' : 'Novo Usuário'}</h2>
+    {/* Descrição do formulário: "editar um usuário" se houver um ID definido, senão "criar um novo usuário" */}
+    <p>Informe os campos a seguir para {id != null ? 'editar um usuário:' : 'criar um novo usuário:'}</p>
+    {/* Formulário de entrada de dados do usuário */}
+    <form onSubmit={formik.handleSubmit}>
+      {/* Campo de entrada para o nome do usuário */}
+      <div>
+        {/* Renderiza uma mensagem de erro se o campo foi tocado e possui erros */}
         {formik.touched?.nome !== undefined && formik.errors?.nome !== undefined && <div className='error-message'>{formik.errors.nome}</div>}
-          <input
-            type="text"
-            id="nome"
-            name='nome'
-            placeholder='Nome'
-            required
-            value={formik.values.nome}
-            onChange={formik.handleChange}
-          />
-        </div>
-        <div>
-          {formik.touched?.email !== undefined && formik.errors?.email !== undefined && <div className='error-message'>{formik.errors.email}</div>}
-          <input
-            type="email"
-            id="email"
-            name="email"
-            placeholder='E-mail'
-            required
-            value={formik.values.email}
-            onChange={formik.handleChange}
-          />
-        </div>
-        <div>
-          {formik.touched?.cpf !== undefined && formik.errors?.cpf !== undefined && <div className='error-message'>{formik.errors.cpf}</div>}
-          <InputMask
-            mask="999.999.999-99"
-            maskChar=""
-            type="text"
-            id="cpf"
-            name="cpf"
-            placeholder='CPF'
-            required
-            value={formik.values.cpf}
-            onChange={formik.handleChange}
-          />
-        </div>
-        <div>
-          {formik.touched?.telefone !== undefined && formik.errors?.telefone !== undefined && <div className='error-message'>{formik.errors.telefone}</div>}
-          <input
-            type="tel"
-            id="telefone"
-            maxLength={14}
-            name="telefone"
-            placeholder='Telefone'
-            required
-            value={formatarTelefone(formik.values.telefone)}
-            onChange={(event) => {
-              const formattedTelefone = formatarTelefone(event.target.value)
-              void formik.setFieldValue('telefone', formattedTelefone)
-            }}
-          />
-        </div>
-        <div>
-          {formik.touched?.status !== undefined && formik.errors?.status !== undefined && <div className='error-message'>{formik.errors.status}</div>}
-          <select
-            id="status"
-            name="status"
-            required
-            value={formik.values.status}
-            onChange={formik.handleChange}
-          >
-            <option value="" disabled>Status</option>
-            <option value="Ativo">Ativo</option>
-            <option value="Inativo">Inativo</option>
-            <option value="Aguardando ativação">Aguardando ativação</option>
-            <option value="Desativado">Desativado</option>
-          </select>
-        </div>
-        <div>
-          <button className='button-create' type="submit">{id != null ? 'Editar' : 'Criar'}</button>
-          <button className='button-back' type="button" onClick={() => { history.push('/') }}>Voltar</button>
-        </div>
-      </form>
-    </div>
+        {/* Input de texto para o nome do usuário */}
+        <input
+          type="text"
+          id="nome"
+          name='nome'
+          placeholder='Nome'
+          required
+          value={formik.values.nome}
+          onChange={formik.handleChange}
+        />
+      </div>
+      {/* Campo de entrada para o e-mail do usuário */}
+      <div>
+        {/* Renderiza uma mensagem de erro se o campo foi tocado e possui erros */}
+        {formik.touched?.email !== undefined && formik.errors?.email !== undefined && <div className='error-message'>{formik.errors.email}</div>}
+        {/* Input de e-mail para o e-mail do usuário */}
+        <input
+          type="email"
+          id="email"
+          name="email"
+          placeholder='E-mail'
+          required
+          value={formik.values.email}
+          onChange={formik.handleChange}
+        />
+      </div>
+      {/* Campo de entrada para o CPF do usuário */}
+      <div>
+        {/* Renderiza uma mensagem de erro se o campo foi tocado e possui erros */}
+        {formik.touched?.cpf !== undefined && formik.errors?.cpf !== undefined && <div className='error-message'>{formik.errors.cpf}</div>}
+        {/* Input de máscara para o CPF do usuário */}
+        <InputMask
+          mask="999.999.999-99"
+          maskChar=""
+          type="text"
+          id="cpf"
+          name="cpf"
+          placeholder='CPF'
+          required
+          value={formik.values.cpf}
+          onChange={formik.handleChange}
+        />
+      </div>
+      {/* Campo de entrada para o telefone do usuário */}
+      <div>
+        {/* Renderiza uma mensagem de erro se o campo foi tocado e possui erros */}
+        {formik.touched?.telefone !== undefined && formik.errors?.telefone !== undefined && <div className='error-message'>{formik.errors.telefone}</div>}
+        {/* Input de máscara para o telefone do usuário */}
+        <input
+          type="tel"
+          id="telefone"
+          maxLength={14}
+          name="telefone"
+          placeholder='Telefone'
+          required
+          value={formatarTelefone(formik.values.telefone)}
+          onChange={(event) => {
+            const formattedTelefone = formatarTelefone(event.target.value)
+            void formik.setFieldValue('telefone', formattedTelefone)
+          }}
+        />
+      </div>
+      {/* Campo de seleção para o status do usuário */}
+      <div>
+        {/* Renderiza uma mensagem de erro se o campo foi tocado e possui erros */}
+        {formik.touched?.status !== undefined && formik.errors?.status !== undefined && <div className='error-message'>{formik.errors.status}</div>}
+        {/* Select para o status do usuário */}
+        <select
+          id="status"
+          name="status"
+          required
+          value={formik.values.status}
+          onChange={formik.handleChange}
+        >
+          <option value="" disabled>Status</option>
+          <option value="Ativo">Ativo</option>
+          <option value="Inativo">Inativo</option>
+          <option value="Aguardando ativação">Aguardando ativação</option>
+          <option value="Desativado">Desativado</option>
+        </select>
+      </div>
+      {/* Botões para enviar ou voltar */}
+      <div>
+        {/* Botão para enviar o formulário */}
+        <button className='button-create' type="submit">{id != null ? 'Editar' : 'Criar'}</button>
+        {/* Botão para voltar */}
+        <button className='button-back' type="button" onClick={() => { history.push('/') }}>Voltar</button>
+      </div>
+    </form>
+  </div>
   )
 }
 
