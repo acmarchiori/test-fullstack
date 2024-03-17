@@ -1,20 +1,20 @@
-import React from 'react';
-import uolLogo from '../../images/uol-logo.png';
-import './Header.css';
+import React from 'react'
+import uolLogo from '../../images/uol-logo.png'
+import './Header.css'
 
-const Header: React.FC = () => {
-    const handleLogoClick = () => {
+const Header: React.FC = (): JSX.Element => {
+  const handleLogoClick = (): void => {
     // Lógica para redirecionar para a página da UOL
-    window.location.href = 'https://www.uol.com.br';
-    };
+    window.location.href = 'https://www.uol.com.br'
+  }
 
-    return (
+  return (
     <header className="header">
-        <div className="header__logo-container">
-            <img src={ uolLogo } className="header__logo" alt="UOL Logo" onClick={handleLogoClick}/>
-        </div>
+      <div className="header__logo-container">
+        <img src={uolLogo} className="header__logo" alt="UOL Logo" onClick={handleLogoClick} />
+      </div>
     </header>
-    );
-};
+  )
+}
 
-export default Header;
+export default Header

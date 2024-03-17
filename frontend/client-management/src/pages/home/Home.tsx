@@ -1,9 +1,9 @@
-import React from 'react';
-import Header from '../../components/header/Header';
-import UserPanel from '../../components/userPanel/UserPanel';
-import UserListSection from '../../components/userListSection/UserListSection';
-import UserList from '../../components/userList/UserList';
-import Footer from '../../components/footer/Footter';
+import React from 'react'
+import Header from '../../components/header/Header'
+import UserPanel from '../../components/userPanel/UserPanel'
+import UserListSection from '../../components/userListSection/UserListSection'
+import UserList from '../../components/userList/UserList'
+import Footer from '../../components/footer/Footter'
 
 const Home: React.FC = () => {
   return (
@@ -14,7 +14,7 @@ const Home: React.FC = () => {
       <UserList />
       <Footer />
     </div>
-  );
-};
+  )
+}
 
-export default Home;
+export default Home

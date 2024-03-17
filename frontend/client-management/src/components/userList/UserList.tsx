@@ -1,47 +1,46 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom'; 
-import { getAllClients } from '../../services/api';
-import './UserList.css';
+import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
+import { getAllClients } from '../../services/api'
+import './UserList.css'
 
 interface Client {
-  id: number;
-  nome: string;
-  email: string;
-  cpf: string;
-  telefone: string;
-  status: string;
+  id?: number
+  nome: string
+  email: string
+  cpf: string
+  telefone: string
+  status: string
 }
 
 const UserList: React.FC = () => {
-  const [clients, setClients] = useState<Client[]>([]);
+  const [clients, setClients] = useState<Client[]>([])
 
   useEffect(() => {
-    const fetchClients = async () => {
+    const fetchClients = async (): Promise<void> => {
       try {
-        const response = await getAllClients(); 
-        setClients(response.data);
+        const response = await getAllClients()
+        setClients(response)
       } catch (error) {
-        console.error('Error fetching clients:', error);
+        console.error('Error fetching clients:', error)
       }
-    };
+    }
+    fetchClients().catch(() => {})
+  }, [])
 
-    fetchClients();
-  }, []);
-
-  const getStatusColor = (status: string) => {
+  const getStatusColor = (status: string): string => {
     switch (status) {
       case 'Ativo':
-        return 'active';
+        return 'active'
       case 'Inativo':
-        return 'inactive';
+        return 'inactive'
       case 'Aguardando ativação':
-        return 'awaiting-activation';
+        return 'awaiting-activation'
       case 'Desativado':
-        return 'disabled';
+        return 'disabled'
       default:
-        return '';
+        return ''
     }
-  };
+  }
 
   return (
     <div>
@@ -51,7 +50,7 @@ const UserList: React.FC = () => {
               <span className='strong'>{client.nome}</span>
               <br />
               <span>{client.email}</span>
-            </div>  
+            </div>
             <div className='second-column'>
             <span className='strong'>{client.cpf}</span>
               <br />
@@ -67,7 +66,7 @@ const UserList: React.FC = () => {
           </div>
       ))}
     </div>
-  );
-};
+  )
+}
 
-export default UserList;
+export default UserList

@@ -1,28 +1,27 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import './Footer.css';
+import React, { useEffect, useState } from 'react'
+import { getAllClients } from '../../services/api'
+import './Footer.css'
 
 const Footer: React.FC = () => {
-  const [numberOfClients, setNumberOfClients] = useState(0);
+  const [numberOfClients, setNumberOfClients] = useState(0)
 
   useEffect(() => {
-    const fetchClients = async () => {
+    const fetchClients = async (): Promise<void> => {
       try {
-        const response = await axios.get('http://localhost:8080/clientes');
-        setNumberOfClients(response.data.length);
+        const clients = await getAllClients()
+        setNumberOfClients(clients.length)
       } catch (error) {
-        console.error('Error fetching clients:', error);
+        console.error('Error fetching clients:', error)
       }
-    };
-
-    fetchClients();
-  }, []);
+    }
+    fetchClients().catch(() => {})
+  }, [])
 
   return (
     <footer className="footer">
       Exibindo {numberOfClients} clientes
     </footer>
-  );
-};
+  )
+}
 
-export default Footer;
+export default Footer

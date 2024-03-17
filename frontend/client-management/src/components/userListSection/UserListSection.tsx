@@ -1,9 +1,9 @@
-import React from 'react';
-import { useHistory } from 'react-router-dom';
-import './UserListSection.css';
+import React from 'react'
+import { useHistory } from 'react-router-dom'
+import './UserListSection.css'
 
 const UserListSection: React.FC = () => {
-  const history = useHistory();
+  const history = useHistory()
 
   return (
     <div className="user-list-section">
@@ -12,11 +12,10 @@ const UserListSection: React.FC = () => {
       <p>Escolha um cliente para visualizar os detalhes</p>
       </div>
       <div>
-        <button type="button" onClick={() => history.push('/clientes')}>Novo cliente</button>
+        <button type="button" onClick={() => { history.push('/clientes') }}>Novo cliente</button>
       </div>
     </div>
-  );
-};
-      
-      export default UserListSection;
-      
+  )
+}
+
+export default UserListSection
