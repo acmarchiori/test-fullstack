@@ -1,2 +1,9 @@
 reportWebVitals.ts
 react-app-env.d.ts
+
+# Ignorar arquivos de teste
+**/__tests__/**
+**/*.test.tsx
+**/*.spec.ts
+**/*.test.js
+**/*.spec.js
