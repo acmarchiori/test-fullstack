@@ -1,11 +1,13 @@
 import axios from 'axios'
 import MockAdapter from 'axios-mock-adapter'
-import api from './mocks/apiMock'
+import api from './mock/apiMock'
 import { render, screen, waitFor, fireEvent } from '@testing-library/react'
 import App from '../App'
 import '@testing-library/jest-dom'
-import clientesMock from './mocks/clientesMock'
+import clientesMock from './mock/clientesMock'
 import { MemoryRouter } from 'react-router-dom'
+import { createMemoryHistory } from 'history';
+import { act } from 'react-dom/test-utils';
 
 describe('Teste da Pagina Home "/"', () => {
   let mock: MockAdapter
@@ -19,7 +21,7 @@ describe('Teste da Pagina Home "/"', () => {
   afterEach(() => {
     mock.reset()
   })
-  test('Testa se a rota "/" Renderiza os elementos iniciais da pagina', async () => {
+  test('Testa se a rota "/" renderiza os elementos iniciais da pagina', async () => {
     // Simulando a resposta para a requisição GET para /clientes
     mock.onGet('/clientes').reply(200, clientesMock)
 
@@ -27,7 +29,9 @@ describe('Teste da Pagina Home "/"', () => {
     await api.get('/clientes')
 
     // Renderize o componente App
-    render(<App />)
+    act(() => {
+      render(<App />)
+    })
 
     // Testa se o texto no inicio da pagina é renderizado
     expect(screen.getByRole('heading', { name: /painel de clientes/i })).toBeInTheDocument()
@@ -54,7 +58,9 @@ describe('Teste da Pagina Home "/"', () => {
     await api.get('/clientes')
 
     // Renderize o componente App
-    render(<App />)
+    act(() => {
+      render(<App />)
+    })
 
     // Aguarde até que todos os elementos da lista sejam renderizados
     await waitFor(() => {
@@ -79,7 +85,9 @@ describe('Teste da Pagina Home "/"', () => {
     await api.get('/clientes')
 
     // Renderize o componente App
-    render(<App />)
+    act(() => {
+      render(<App />)
+    })
 
     // Aguarde até que todos os elementos da lista sejam renderizados
     await waitFor(() => {
@@ -89,36 +97,61 @@ describe('Teste da Pagina Home "/"', () => {
   })
   test('Clicar no botão "Novo cliente" redireciona para a rota /clientes', () => {
     // Renderize o componente dentro de um MemoryRouter
-    render(
-      <MemoryRouter>
-        <App />
-      </MemoryRouter>
-    )
+    act(() => {
+      render(
+        <MemoryRouter>
+          <App />
+        </MemoryRouter>
+      )
+    })
 
     // Encontre e clique no botão "Novo Cliente"
     const novoClienteButton = screen.getByText('Novo cliente')
-    fireEvent.click(novoClienteButton)
+    act(() => { fireEvent.click(novoClienteButton) })
 
     // Verifique se a rota foi alterada para /clientes
     expect(window.location.pathname).toBe('/clientes')
+
+    // Testando o botão voltar
+    act(() => { fireEvent.click(screen.getByRole('button', { name: /voltar/i })) })
+
+    // Verifique se a rota foi alterada para "/"
+    expect(window.location.pathname).toBe('/')
   })
 
-  test('Clicar no botão "Editar" redireciona para a rota /clientes', () => {
+  test('Clicar no botão "Editar" redireciona para a rota /clientes/id', async () => {
+    // Simulando a resposta para a requisição GET para /clientes
+    mock.onGet('/clientes').reply(200, clientesMock)
+
+    // Realizando a requisição GET para /clientes utilizando a instância da API mockada
+    await api.get('/clientes')
+
+    // Configurando o histórico do MemoryRouter
+    const history = createMemoryHistory();
+
     // Renderize o componente dentro de um MemoryRouter
-    render(
-      <MemoryRouter>
-        <App />
-      </MemoryRouter>
-    )
+    act(() => {
+      render(
+        <MemoryRouter initialEntries={['/']}>
+          <App />
+        </MemoryRouter>
+      )
+    })
 
+    // Aguarde a renderização do componente que exibe os clientes
+    await waitFor(() => screen.getByText('123.456.789-00'));
+    
     // Encontre e clique no botão "Editar" se ele existir
-    const editarButton = screen.queryByText('Editar')
-    // Verifique se o botão "Editar existe"
-    if (editarButton) {
-      fireEvent.click(editarButton)
-    }
+    const editarButtons = screen.getAllByText('Editar');
+      if (editarButtons.length > 1) {
+        act(() => { fireEvent.click(editarButtons[1]) }) // Clique no botão "Editar" do segundo cliente
+      }
+        
+    // Extrai o id do caminho atual
+    const currentPath = window.location.pathname;
+    const id = currentPath.split('/')[2];
 
-    // Verifique se a rota foi alterada para /clientes
-    expect(window.location.pathname).toBe('/clientes')
+    // Verifique se a rota foi alterada para /clientes/id, onde id é o id do cliente
+    expect(currentPath).toBe(`/clientes/${id}`);
   })
 })

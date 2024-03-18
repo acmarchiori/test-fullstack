@@ -27,7 +27,7 @@ export function formatarTelefone (telefone: string): string {
 
 // Esquema de validação
 export const schema = yup.object().shape({
-  nome: yup.string().matches(/^[a-zA-Z\s]+$/, 'Nome inválido'),
+  nome: yup.string().matches(/^[a-zA-ZÀ-ú\s]+$/, 'Nome inválido'),
   email: yup.string().email('E-mail inválido'),
   cpf: yup.string().matches(/^\d{3}\.\d{3}\.\d{3}-\d{2}$/, 'CPF inválido'),
   telefone: yup.string().matches(/^\(\d{2}\)\d{4,5}-\d{4}$/, 'Telefone inválido'),

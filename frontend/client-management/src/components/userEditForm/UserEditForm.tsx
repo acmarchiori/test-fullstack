@@ -140,6 +140,7 @@ const UserEditForm: React.FC = () => {
         {formik.touched?.cpf !== undefined && formik.errors?.cpf !== undefined && <div className='error-message'>{formik.errors.cpf}</div>}
         {/* Input de máscara para o CPF do usuário */}
         <InputMask
+          data-testid="cpf"
           mask="999.999.999-99"
           maskChar=""
           type="text"

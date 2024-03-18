@@ -61,7 +61,7 @@ const UserList: React.FC = () => {
       {clients.map(client => (
         <div key={client.id} className='client-info'>
           <div className='first-column'>
-            <span className='strong'>{client.nome}</span>
+            <span className='strong' data-testid="cliente">{client.nome}</span>
             <br />
             <span>{client.email}</span>
           </div>

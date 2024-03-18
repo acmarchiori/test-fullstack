@@ -1,4 +1,13 @@
-const clientesMock = [
+interface Cliente {
+  id: number
+  nome: string
+  email: string
+  cpf: string
+  telefone: string
+  status: 'Ativo' | 'Inativo' | 'Aguardando ativação' | 'Desativado'
+}
+
+const clientesMock: Cliente[] = [
   {
     id: 1,
     nome: 'John Doe',

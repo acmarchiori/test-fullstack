@@ -1,5 +1,9 @@
 reportWebVitals.ts
 react-app-env.d.ts
+apiMock.ts
+api.test.ts
+UserContext.test.tsx
+jest.config.js
 
 # Ignorar arquivos de teste
 **/__tests__/**
