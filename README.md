@@ -1,41 +1,66 @@
-# Teste Fullstack: Aplicativo de Gerenciamento de Clientes
+# Aplicativo de Gerenciamento de Clientes
 
-## Descrição:
+Este é um projeto fullstack desenvolvido como parte de um teste para a vaga de Desenvolvedor Trainee Fullstack na UOL. O aplicativo permite aos usuários visualizar e criar clientes, com um frontend responsável pela interface do usuário e comunicação com a API, e um backend responsável pelo armazenamento e gerenciamento dos dados dos clientes.
 
-Neste desafio, você deverá desenvolver um aplicativo fullstack que permita aos usuários visualizar e criar clientes. O aplicativo consiste em duas partes: o frontend e o backend. O frontend será responsável pela interface do usuário e a comunicação com a API. O backend será responsável pelo armazenamento e gerenciamento dos dados dos clientes.
+## Tecnologias Utilizadas
 
-## Requisitos do Frontend:
+### Frontend
 
-1. Exibir uma listagem de clientes contendo todas as informações conforme o layout fornecido.
-2. Permitir a criação de um novo cliente através de um formulário.
-3. Na tela de edição, fornecer alertas para o usuário em caso de dados inválidos.
-4. Realizar validação de CPF e telefone na tela de edição para garantir dados corretos e consistentes.
-5. Comunicar-se com a API para obter os dados dos clientes cadastrados.
+- **Tecnologias Principais**:
+  - TypeScript
+  - React
+  - Context API
+  - Hooks
 
-## Requisitos do Backend:
+- **Bibliotecas e Frameworks**:
+  - Axios: Para comunicação com a API.
+  - Formik: Para validação de formulários.
+  - Yup: Para definição de esquemas de validação.
+  - React Input Mask: Para aplicar máscaras em inputs.
 
-Criar uma API que ofereça endpoints para:
+- **Testes**:
+  - Jest: Framework de testes.
+  - @testing-library/react: Para testes de componentes.
+  - @testing-library/jest-dom: Para extensões de expectativas.
 
-1. Obter a listagem de clientes cadastrados.
-2. Cadastrar um novo cliente com informações válidas.
-3. Atualizar informações de cliente existente.
-4. Armazenar os dados do cliente de forma persistente, com sugestão de uso do SQLite para essa finalidade.
+### Backend
 
-## Requisitos de Qualidade de Código:
+- **Tecnologias Principais**:
+  - Java
+  - Spring Framework
 
-Escreva um código limpo, legível e bem organizado.
-Adote boas práticas de desenvolvimento e arquitetura.
+- **Banco de Dados**:
+  - SQLite
+  - Spring Data JPA
 
-## Itens Desejáveis (opcional):
+- **Testes**:
+  - JUnit: Framework de testes para Java.
 
-- Testes unitários
-- Bibliotecas ou frameworks adicionais
+## Scripts (Frontend)
 
-## Telas:
+Para executar os scripts do frontend, você precisará do npm instalado em sua máquina.
 
-- [Tela Inicial](https://test-frontend-uolpp.web.app/assets/images/tela-inicial.jpg)
-- [Tela de Edição](https://test-frontend-uolpp.web.app/assets/images/tela-edicao.jpg)
+- `npm start`: Inicia o servidor de desenvolvimento do frontend.
+- `npm run build`: Compila o projeto para produção.
+- `npm test`: Executa os testes do frontend com cobertura.
+- `npm run eject`: Ejeta a configuração do webpack para personalização avançada.
+- `npm run lint`: Executa o ESLint para análise estática do código.
 
-## Instruções Finais:
+## Como Executar
 
-Após concluir o desafio, crie um pull request neste repositório com duas pastas separadas: uma contendo o projeto frontend e outra com o projeto backend, para que possamos avaliar seu trabalho. Boa sorte!
+Para executar a aplicação, siga os seguintes passos:
+
+1. Certifique-se de ter o Docker instalado em sua máquina.
+2. Navegue até a raiz do projeto.
+3. Execute o comando `docker-compose up`. Isso iniciará o container Docker para o frontend e o backend, bem como o banco de dados SQLite.
+4. Após a inicialização, acesse o aplicativo através do navegador usando o endereço [http://localhost:3000/](http://localhost:3000/).
+
+## Documentação do Código
+
+O código está completamente documentado, explicando a responsabilidade de cada componente, função, etc. Isso visa facilitar a compreensão e manutenção do código no futuro.
+
+## Considerações Finais
+
+O código foi escrito seguindo boas práticas de desenvolvimento e arquitetura, visando a legibilidade, organização e manutenibilidade do código. Além disso, foram realizados testes tanto no frontend quanto no backend para garantir a integridade e robustez da aplicação.
+
+Para qualquer dúvida ou problema, não hesite em entrar em contato.
