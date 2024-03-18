@@ -1,13 +1,11 @@
 package com.uoldevs.clientmanagementapi;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.when;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-
+import static org.mockito.Mockito.when;
 
 import com.uoldevs.clientmanagementapi.controller.dto.ClienteDto;
+import com.uoldevs.clientmanagementapi.exception.ClienteNotFoundException;
 import com.uoldevs.clientmanagementapi.exception.CpfInvalidoException;
 import com.uoldevs.clientmanagementapi.models.entities.Cliente;
 import com.uoldevs.clientmanagementapi.models.repositories.ClienteRepository;
@@ -20,9 +18,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.mockito.stubbing.Answer;
 
 public class ClienteServiceTest {
 
@@ -72,81 +68,58 @@ public class ClienteServiceTest {
     assertEquals("Inativo", result.get(1).status());
   }
 
-//  @Test
-//  void testCadastrarCliente() {
-//    // Criar um novo cliente DTO
-//    ClienteDto clienteDto = new ClienteDto(null, "John Doe", "john@example.com", "123.456.789-00", "(11)9998-8745", "Ativo");
-//
-//    // Mock do retorno do método validarCpfUnico para sempre retornar true
-//    when(validacoes.validarCpfUnico("123.456.789-00")).thenReturn(true);
-//
-//// Mock do retorno do repositório ao salvar o cliente
-//    Cliente clienteSalvo = new Cliente();
-//    clienteSalvo.setId(1L); // Definindo um ID válido
-//    when(clienteRepository.save(any(Cliente.class))).thenReturn(clienteSalvo);
-//
-//    // Chamar o método de cadastrarCliente
-//    ClienteDto clienteCadastrado = clienteService.cadastrarCliente(clienteDto);
-//
-//    // Verificar se o cliente foi cadastrado corretamente
-//    assertEquals(clienteDto.nome(), clienteCadastrado.nome());
-//    assertEquals(clienteDto.email(), clienteCadastrado.email());
-//    assertEquals(clienteDto.cpf(), clienteCadastrado.cpf());
-//    assertEquals(clienteDto.telefone(), clienteCadastrado.telefone());
-//    assertEquals(clienteDto.status(), clienteCadastrado.status());
-//  }
+  @Test
+  void shouldReturnClienteDtoWhenCadastrado() {
+    ClienteDto clienteDto = new ClienteDto(null, "John Doe", "john@example.com", "123.456.789-99", "(11)9999-9999", "Ativo");
+    Cliente cliente = new Cliente(1L, "John Doe", "john@example.com", "123.456.789-99", "(11)9999-9999", "Ativo");
 
+    // Configurar o mock para retornar true ao validar CPF único
+    when(validacoes.validarCpfUnico("123.456.789-99")).thenReturn(true);
 
+    when(clienteRepository.save(any(Cliente.class))).thenReturn(cliente);
+
+    ClienteDto result = clienteService.cadastrarCliente(clienteDto);
+
+    assertEquals(cliente.getNome(), result.nome());
+    assertEquals(cliente.getEmail(), result.email());
+    assertEquals(cliente.getCpf(), result.cpf());
+    assertEquals(cliente.getTelefone(), result.telefone());
+    assertEquals(cliente.getStatus(), result.status());
+  }
 
   @Test
-  void testCadastrarCliente_CpfDuplicado() {
-    // Criar um novo cliente DTO com CPF duplicado
+  void shouldThrowCpfInvalidoExceptionWhenCpfDuplicado() {
     ClienteDto clienteDto = new ClienteDto(null, "John Doe", "john@example.com", "123.456.789-00", "(11)9999-9999", "Ativo");
+    when(clienteRepository.existsByCpf(any())).thenReturn(true);
 
-    // Mock do retorno do método validarCpfUnico() para lançar CpfInvalidoException
-    when(validacoes.validarCpfUnico("123.456.789-00")).thenThrow(new CpfInvalidoException("CPF já cadastrado"));
-
-    // Criar uma instância do serviço
-    ClienteService clienteService = new ClienteService(clienteRepository, validacoes);
-
-    // Verificar se a exceção é lançada ao tentar cadastrar um cliente com CPF duplicado
     assertThrows(CpfInvalidoException.class, () -> {
       clienteService.cadastrarCliente(clienteDto);
     });
   }
 
+  @Test
+  void shouldReturnClienteDtoWhenAtualizado() {
+    ClienteDto clienteDto = new ClienteDto(1, "Jane Doe", "jane@example.com", "123.456.789-01", "(11)8888-8888", "Inativo");
+    Cliente cliente = new Cliente(1L, "Jane Doe", "jane@example.com", "123.456.789-01", "(11)8888-8888", "Inativo");
+    when(clienteRepository.findById(1L)).thenReturn(Optional.of(cliente));
+    when(clienteRepository.save(any(Cliente.class))).thenReturn(cliente);
 
+    ClienteDto result = clienteService.atualizarCliente(1L, clienteDto);
 
+    assertEquals(cliente.getNome(), result.nome());
+    assertEquals(cliente.getEmail(), result.email());
+    assertEquals(cliente.getCpf(), result.cpf());
+    assertEquals(cliente.getTelefone(), result.telefone());
+    assertEquals(cliente.getStatus(), result.status());
+  }
 
-//  @Test
-//  void testAtualizarCliente() {
-//    // Criar um cliente existente e um cliente DTO com dados atualizados
-//    Cliente clienteExistente = new Cliente(1L, "John Doe", "john@example.com", "123.456.789-00", "(11)9999-9999", "Ativo");
-//    ClienteDto clienteDtoAtualizado = new ClienteDto(1L, "Jane Doe", "jane@example.com", "123.456.789-01", "(11)8888-8888", "Inativo");
-//
-//    // Mock das validações
-//    when(validacoes.validarFormatoCpf("123.456.789-01")).thenReturn(true);
-//    when(validacoes.validarCpfUnico("123.456.789-01")).thenReturn(true);
-//    when(validacoes.validarEmailUnico("jane@example.com")).thenReturn(true);
-//    when(validacoes.validarNome("Jane Doe")).thenReturn(true);
-//    when(validacoes.validarFormatoTelefone("(11)8888-8888")).thenReturn(true);
-//    when(validacoes.validarStatus("Inativo")).thenReturn(true);
-//
-//    // Mock do retorno do repositório ao buscar o cliente pelo ID
-//    when(clienteRepository.findById(1L)).thenReturn(Optional.of(clienteExistente));
-//
-//    // Mock do retorno do repositório ao salvar o cliente atualizado
-//    Cliente clienteAtualizado = new Cliente(1L, "Jane Doe", "jane@example.com", "123.456.789-01", "(11)8888-8888", "Inativo");
-//    when(clienteRepository.save(any(Cliente.class))).thenReturn(clienteAtualizado);
-//
-//    // Chamar o método de atualizarCliente
-//    ClienteDto clienteAtualizadoDto = clienteService.atualizarCliente(1L, clienteDtoAtualizado);
-//
-//    // Verificar se o cliente foi atualizado corretamente
-//    assertEquals(clienteDtoAtualizado.nome(), clienteAtualizadoDto.nome());
-//    assertEquals(clienteDtoAtualizado.email(), clienteAtualizadoDto.email());
-//    assertEquals(clienteDtoAtualizado.cpf(), clienteAtualizadoDto.cpf());
-//    assertEquals(clienteDtoAtualizado.telefone(), clienteAtualizadoDto.telefone());
-//    assertEquals(clienteDtoAtualizado.status(), clienteAtualizadoDto.status());
-//  }
+  @Test
+  void shouldThrowClienteNotFoundExceptionWhenAtualizadoIdDoesNotExist() {
+    ClienteDto clienteDto = new ClienteDto(1, "Jane Doe", "jane@example.com", "123.456.789-01", "(11)8888-8888", "Inativo");
+    when(clienteRepository.findById(1L)).thenReturn(Optional.empty());
+
+    assertThrows(ClienteNotFoundException.class, () -> {
+      clienteService.atualizarCliente(1L, clienteDto);
+    });
+  }
 }
