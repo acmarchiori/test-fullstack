@@ -55,6 +55,25 @@ Para executar a aplicação, siga os seguintes passos:
 3. Execute o comando `docker-compose up`. Isso iniciará o container Docker para o frontend e o backend, bem como o banco de dados SQLite.
 4. Após a inicialização, acesse o aplicativo através do navegador usando o endereço [http://localhost:3000/](http://localhost:3000/).
 
+## Deploy da Aplicação
+
+A aplicação está publicada na seguinte URL:
+- Frontend: [https://marchiori-app-gerenciamento-clientes.surge.sh/](https://marchiori-app-gerenciamento-clientes.surge.sh/)
+- Backend: [https://client-management-api.fly.dev/](https://client-management-api.fly.dev/)
+
+Para o deploy, foram utilizadas as seguintes ferramentas:
+- **Frontend**: Surge.sh
+- **Backend**: Fly.io
+
+## Rodando o Backend Localmente (Java)
+
+Para executar o backend localmente, siga estas etapas:
+
+1. Certifique-se de ter o Java Development Kit (JDK) instalado em sua máquina.
+2. Navegue até o diretório do backend (`./backend/client-management-api`).
+3. Execute o comando `./mvnw spring-boot:run` para iniciar o servidor Spring Boot localmente.
+4. O backend estará disponível em `http://localhost:8080`.
+
 ## Documentação do Código
 
 O código está completamente documentado, explicando a responsabilidade de cada componente, função, etc. Isso visa facilitar a compreensão e manutenção do código no futuro.
@@ -64,4 +83,3 @@ O código está completamente documentado, explicando a responsabilidade de cada
 O código foi escrito seguindo boas práticas de desenvolvimento e arquitetura, visando a legibilidade, organização e manutenibilidade do código. Além disso, foram realizados testes tanto no frontend quanto no backend para garantir a integridade e robustez da aplicação.
 
 Para qualquer dúvida ou problema, não hesite em entrar em contato.
-
