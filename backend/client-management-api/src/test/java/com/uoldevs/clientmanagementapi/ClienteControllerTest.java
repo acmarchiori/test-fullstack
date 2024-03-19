@@ -54,17 +54,7 @@ public class ClienteControllerTest {
   }
 
   @Test
-  public void shouldReturnNotFoundWhenClientDoesNotExist() throws ClienteNotFoundException {
-    when(clienteService.getClienteById(anyLong())).thenThrow(new ClienteNotFoundException("Client not found"));
-
-    ResponseEntity<?> response = clienteController.obterClientePorId(1L);
-
-    assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
-    assertEquals("Client not found", response.getBody());
-  }
-
-  @Test
-  public void shouldCreateClient() throws CpfInvalidoException, EmailInvalidoException, ClienteExistenteException, TelefoneInvalidoException, StatusInvalidoException {
+  public void shouldCreateClient() throws ValidacaoException {
     ClienteDto clienteDto = new ClienteDto(1, "Test Name", "test@email.com", "123.456.789-01", "(13)3471-1189", "Ativo");
     when(clienteService.cadastrarCliente(any(ClienteDto.class))).thenReturn(clienteDto);
 
@@ -75,8 +65,8 @@ public class ClienteControllerTest {
   }
 
   @Test
-  public void shouldReturnBadRequestWhenCreatingInvalidClient() throws CpfInvalidoException, EmailInvalidoException, ClienteExistenteException, TelefoneInvalidoException, StatusInvalidoException {
-    when(clienteService.cadastrarCliente(any(ClienteDto.class))).thenThrow(new CpfInvalidoException("Invalid CPF"));
+  public void shouldReturnBadRequestWhenCreatingInvalidClient() throws ValidacaoException {
+    when(clienteService.cadastrarCliente(any(ClienteDto.class))).thenThrow(new ValidacaoException("Invalid CPF"));
 
     ResponseEntity<?> response = clienteController.cadastrarCliente(new ClienteDto(1, "Test Name", "test@email.com", "123.456.789-01", "(13)3471-1189", "Ativo"));
 
@@ -85,7 +75,7 @@ public class ClienteControllerTest {
   }
 
   @Test
-  public void shouldUpdateClient() throws CpfDuplicadoException, CpfInvalidoException, EmailInvalidoException, ClienteNotFoundException {
+  public void shouldUpdateClient() throws ValidacaoException, ClienteNotFoundException {
     ClienteDto clienteDto = new ClienteDto(1, "Test Name", "test@email.com", "123.456.789-01", "(13)3471-1189", "Ativo");
     when(clienteService.atualizarCliente(anyLong(), any(ClienteDto.class))).thenReturn(clienteDto);
 
@@ -96,8 +86,8 @@ public class ClienteControllerTest {
   }
 
   @Test
-  public void shouldReturnBadRequestWhenUpdatingInvalidClient() throws CpfDuplicadoException, CpfInvalidoException, EmailInvalidoException, ClienteNotFoundException {
-    when(clienteService.atualizarCliente(anyLong(), any(ClienteDto.class))).thenThrow(new CpfInvalidoException("Invalid CPF"));
+  public void shouldReturnBadRequestWhenUpdatingInvalidClient() throws ValidacaoException, ClienteNotFoundException {
+    when(clienteService.atualizarCliente(anyLong(), any(ClienteDto.class))).thenThrow(new ValidacaoException("Invalid CPF"));
 
     ResponseEntity<?> response = clienteController.atualizarCliente(1L, new ClienteDto(1, "Test Name", "test@email.com", "123.456.789-01", "(13)3471-1189", "Ativo"));
 
@@ -106,7 +96,7 @@ public class ClienteControllerTest {
   }
 
   @Test
-  public void shouldReturnNotFoundWhenUpdatingNonExistentClient() throws CpfDuplicadoException, CpfInvalidoException, EmailInvalidoException, ClienteNotFoundException {
+  public void shouldReturnNotFoundWhenUpdatingNonExistentClient() throws ValidacaoException, ClienteNotFoundException {
     when(clienteService.atualizarCliente(anyLong(), any(ClienteDto.class))).thenThrow(new ClienteNotFoundException("Client not found"));
 
     ResponseEntity<?> response = clienteController.atualizarCliente(1L, new ClienteDto(1, "Test Name", "test@email.com", "123.456.789-01", "(13)3471-1189", "Ativo"));

@@ -1,13 +1,8 @@
 package com.uoldevs.clientmanagementapi.controller;
 
 import com.uoldevs.clientmanagementapi.controller.dto.ClienteDto;
-import com.uoldevs.clientmanagementapi.exception.ClienteExistenteException;
 import com.uoldevs.clientmanagementapi.exception.ClienteNotFoundException;
-import com.uoldevs.clientmanagementapi.exception.CpfDuplicadoException;
-import com.uoldevs.clientmanagementapi.exception.CpfInvalidoException;
-import com.uoldevs.clientmanagementapi.exception.EmailInvalidoException;
-import com.uoldevs.clientmanagementapi.exception.StatusInvalidoException;
-import com.uoldevs.clientmanagementapi.exception.TelefoneInvalidoException;
+import com.uoldevs.clientmanagementapi.exception.ValidacaoException;
 import com.uoldevs.clientmanagementapi.service.ClienteService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
  * ClienteController.
  */
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = {"http://localhost:3000", "https://marchiori-app-gerenciamento-clientes.surge.sh"})
 @RequestMapping("/clientes")
 public class ClienteController {
 
@@ -55,7 +50,7 @@ public class ClienteController {
     try {
       ClienteDto cliente = clienteService.getClienteById(id);
       return ResponseEntity.ok(cliente);
-    } catch (ClienteNotFoundException e) {
+    } catch (ValidacaoException e) {
       return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
     }
   }
@@ -68,8 +63,7 @@ public class ClienteController {
     try {
       ClienteDto novoCliente = clienteService.cadastrarCliente(clienteDto);
       return ResponseEntity.status(HttpStatus.CREATED).body(novoCliente);
-    } catch (CpfInvalidoException | EmailInvalidoException | ClienteExistenteException
-             | TelefoneInvalidoException | StatusInvalidoException e) {
+    } catch ( ValidacaoException e) {
       // Retorna a mensagem de erro como uma string
       return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
     }
@@ -84,7 +78,7 @@ public class ClienteController {
     try {
       ClienteDto clienteAtualizado = clienteService.atualizarCliente(id, clienteDto);
       return ResponseEntity.ok(clienteAtualizado);
-    } catch (CpfDuplicadoException | CpfInvalidoException | EmailInvalidoException e) {
+    } catch ( ValidacaoException e) {
       // Retorna a mensagem de erro como uma string
       return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
     } catch (ClienteNotFoundException e) {

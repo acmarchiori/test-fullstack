@@ -3,10 +3,9 @@ package com.uoldevs.clientmanagementapi.exception;
 /**
  * Exception to be thrown when a client is already registered.
  */
-public class ClienteExistenteException extends RuntimeException {
+public class ValidacaoException extends RuntimeException {
 
-  public ClienteExistenteException(String message) {
-
+  public ValidacaoException(String message) {
     super(message);
   }
 }

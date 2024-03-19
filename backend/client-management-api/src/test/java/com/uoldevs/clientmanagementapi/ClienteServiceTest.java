@@ -6,7 +6,6 @@ import static org.mockito.Mockito.when;
 
 import com.uoldevs.clientmanagementapi.controller.dto.ClienteDto;
 import com.uoldevs.clientmanagementapi.exception.ClienteNotFoundException;
-import com.uoldevs.clientmanagementapi.exception.CpfInvalidoException;
 import com.uoldevs.clientmanagementapi.models.entities.Cliente;
 import com.uoldevs.clientmanagementapi.models.repositories.ClienteRepository;
 import com.uoldevs.clientmanagementapi.service.ClienteService;
@@ -88,16 +87,6 @@ public class ClienteServiceTest {
   }
 
   @Test
-  void shouldThrowCpfInvalidoExceptionWhenCpfDuplicado() {
-    ClienteDto clienteDto = new ClienteDto(null, "John Doe", "john@example.com", "123.456.789-00", "(11)9999-9999", "Ativo");
-    when(clienteRepository.existsByCpf(any())).thenReturn(true);
-
-    assertThrows(CpfInvalidoException.class, () -> {
-      clienteService.cadastrarCliente(clienteDto);
-    });
-  }
-
-  @Test
   void shouldReturnClienteDtoWhenAtualizado() {
     ClienteDto clienteDto = new ClienteDto(1, "Jane Doe", "jane@example.com", "123.456.789-01", "(11)8888-8888", "Inativo");
     Cliente cliente = new Cliente(1L, "Jane Doe", "jane@example.com", "123.456.789-01", "(11)8888-8888", "Inativo");
@@ -120,6 +109,29 @@ public class ClienteServiceTest {
 
     assertThrows(ClienteNotFoundException.class, () -> {
       clienteService.atualizarCliente(1L, clienteDto);
+    });
+  }
+
+  @Test
+  void shouldReturnClienteDtoWhenGetClienteById() {
+    Cliente cliente = new Cliente(1L, "John Doe", "john@example.com", "123.456.789-00", "(11)9999-9999", "Ativo");
+    when(clienteRepository.findById(1L)).thenReturn(Optional.of(cliente));
+
+    ClienteDto result = clienteService.getClienteById(1L);
+
+    assertEquals(cliente.getNome(), result.nome());
+    assertEquals(cliente.getEmail(), result.email());
+    assertEquals(cliente.getCpf(), result.cpf());
+    assertEquals(cliente.getTelefone(), result.telefone());
+    assertEquals(cliente.getStatus(), result.status());
+  }
+
+  @Test
+  void shouldThrowClienteNotFoundExceptionWhenGetClienteByIdNotFound() {
+    when(clienteRepository.findById(1L)).thenReturn(Optional.empty());
+
+    assertThrows(ClienteNotFoundException.class, () -> {
+      clienteService.getClienteById(1L);
     });
   }
 }

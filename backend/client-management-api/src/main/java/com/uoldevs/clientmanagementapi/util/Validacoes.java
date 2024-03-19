@@ -1,9 +1,6 @@
 package com.uoldevs.clientmanagementapi.util;
 
-import com.uoldevs.clientmanagementapi.exception.CpfInvalidoException;
-import com.uoldevs.clientmanagementapi.exception.EmailInvalidoException;
-import com.uoldevs.clientmanagementapi.exception.NomeInvalidoException;
-import com.uoldevs.clientmanagementapi.exception.TelefoneInvalidoException;
+import com.uoldevs.clientmanagementapi.exception.ValidacaoException;
 import com.uoldevs.clientmanagementapi.models.repositories.ClienteRepository;
 import org.springframework.stereotype.Component;
 
@@ -27,20 +24,27 @@ public class Validacoes {
         || nome.length() < 2
         || nome.length() > 100
         || !nome.matches("^[\\p{L}\\s\\-']+$")) {
-      throw new NomeInvalidoException("Nome inválido");
+      throw new ValidacaoException("Nome inválido");
     }
   }
 
   /**
    * Validação de email.
    */
-  public static void validarEmailUnico(String email) {
-    if (!email.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")) {
-      throw new EmailInvalidoException("Email inválido");
+  public static void validarEmail(String email) {
+    if (email == null || !email.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")) {
+      throw new ValidacaoException("Email inválido");
     }
+  }
+
+  /**
+   * Validação de email único.
+   */
+  public static void validarEmailUnico(String email) {
+    validarEmail(email);
 
     if (clienteRepository.existsByEmail(email)) {
-      throw new EmailInvalidoException("Email já cadastrado");
+      throw new ValidacaoException("Email já cadastrado");
     }
   }
 
@@ -49,7 +53,7 @@ public class Validacoes {
    */
   public static void validarFormatoCpf(String cpf) {
     if (!cpf.matches("^[0-9]{3}\\.[0-9]{3}\\.[0-9]{3}-[0-9]{2}$")) {
-      throw new CpfInvalidoException("CPF inválido");
+      throw new ValidacaoException("CPF inválido");
     }
   }
 
@@ -60,21 +64,21 @@ public class Validacoes {
     return !clienteRepository.existsByCpf(cpf);
   }
 
-
   /**
    * Validação de formato de telefone.
    */
   public static void validarFormatoTelefone(String telefone) {
     if (telefone != null && !telefone.matches("^\\([0-9]{2}\\)[0-9]{4,5}-[0-9]{4}$")) {
-      throw new TelefoneInvalidoException("Formato de telefone inválido");
+      throw new ValidacaoException("Formato de telefone inválido");
     }
   }
 
   /**
-   * Validação de status valido.
+   * Validação de status válido.
    */
-  public static boolean validarStatus(String status) {
-    return status != null && (status.equals("Ativo") || status.equals("Inativo")
-        || status.equals("Aguardando ativação") || status.equals("Desativado"));
+  public static void validarStatus(String status) {
+    if (status == null || !status.matches("^(Ativo|Inativo|Aguardando ativação|Desativado)$")) {
+      throw new ValidacaoException("Status inválido");
+    }
   }
 }
