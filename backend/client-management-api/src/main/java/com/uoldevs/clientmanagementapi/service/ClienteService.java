@@ -59,28 +59,20 @@ public class ClienteService {
         .orElseThrow(() -> new ClienteNotFoundException("Cliente não encontrado com o ID: " + id));
 
     Validacoes.validarFormatoCpf(newClienteDto.cpf());
-    Validacoes.validarEmailUnico(newClienteDto.email());
     Validacoes.validarNome(newClienteDto.nome());
     Validacoes.validarFormatoTelefone(newClienteDto.telefone());
     Validacoes.validarStatus(newClienteDto.status());
 
-    if (!clienteExistente.getCpf().equals(newClienteDto.cpf())
-        && clienteRepository.existsByCpf(newClienteDto.cpf())) {
-      throw new ValidacaoException("Já existe um cliente com o CPF: " + newClienteDto.cpf());
-    }
-
-    if (!clienteExistente.getEmail().equals(newClienteDto.email())
-        && clienteRepository.existsByEmail(newClienteDto.email())) {
-      throw new ValidacaoException("Já existe um cliente com o e-mail: " + newClienteDto.email());
-    }
-
+    // Atualiza os dados do cliente existente
     clienteExistente.setNome(newClienteDto.nome());
     clienteExistente.setEmail(newClienteDto.email());
     clienteExistente.setCpf(newClienteDto.cpf());
     clienteExistente.setTelefone(newClienteDto.telefone());
     clienteExistente.setStatus(newClienteDto.status());
 
+    // Salva as alterações no banco de dados
     clienteExistente = clienteRepository.save(clienteExistente);
     return ClienteDto.toCliente(clienteExistente);
   }
 }
+
