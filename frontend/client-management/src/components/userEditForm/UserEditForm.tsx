@@ -191,7 +191,7 @@ const UserEditForm: React.FC = () => {
         </select>
       </div>
       {/* Botões para enviar ou voltar */}
-      <div>
+      <div className="button-container">
         {/* Botão para enviar o formulário */}
         <button className='button-create' type="submit">{id != null ? 'Editar' : 'Criar'}</button>
         {/* Botão para voltar */}

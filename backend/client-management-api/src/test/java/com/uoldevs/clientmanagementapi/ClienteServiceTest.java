@@ -38,7 +38,7 @@ public class ClienteServiceTest {
   }
 
   @Test
-  void testListarClientes() {
+  void listarClientesTeste() {
     // Mock dos clientes retornados pelo repositório
     List<Cliente> clientes = new ArrayList<>();
     clientes.add(new Cliente(1L, "John Doe", "john@example.com", "123.456.789-00", "(11)9999-9999", "Ativo"));
@@ -68,7 +68,7 @@ public class ClienteServiceTest {
   }
 
   @Test
-  void shouldReturnClienteDtoWhenCadastrado() {
+  void deveRetornarClienteDtoQuandoCadastrado() {
     ClienteDto clienteDto = new ClienteDto(null, "John Doe", "john@example.com", "123.456.789-99", "(11)9999-9999", "Ativo");
     Cliente cliente = new Cliente(1L, "John Doe", "john@example.com", "123.456.789-99", "(11)9999-9999", "Ativo");
 
@@ -87,7 +87,7 @@ public class ClienteServiceTest {
   }
 
   @Test
-  void shouldReturnClienteDtoWhenAtualizado() {
+  void deveRetornarClienteDtoQuandoAtualizado() {
     ClienteDto clienteDto = new ClienteDto(1, "Jane Doe", "jane@example.com", "123.456.789-01", "(11)8888-8888", "Inativo");
     Cliente cliente = new Cliente(1L, "Jane Doe", "jane@example.com", "123.456.789-01", "(11)8888-8888", "Inativo");
     when(clienteRepository.findById(1L)).thenReturn(Optional.of(cliente));
@@ -103,7 +103,7 @@ public class ClienteServiceTest {
   }
 
   @Test
-  void shouldThrowClienteNotFoundExceptionWhenAtualizadoIdDoesNotExist() {
+  void deveLancarClienteNotFoundExceptionQuandoAtualizadoIdNaoExistir() {
     ClienteDto clienteDto = new ClienteDto(1, "Jane Doe", "jane@example.com", "123.456.789-01", "(11)8888-8888", "Inativo");
     when(clienteRepository.findById(1L)).thenReturn(Optional.empty());
 
@@ -113,7 +113,7 @@ public class ClienteServiceTest {
   }
 
   @Test
-  void shouldReturnClienteDtoWhenGetClienteById() {
+  void deveRetornarClienteDtoQuandoGetClienteById() {
     Cliente cliente = new Cliente(1L, "John Doe", "john@example.com", "123.456.789-00", "(11)9999-9999", "Ativo");
     when(clienteRepository.findById(1L)).thenReturn(Optional.of(cliente));
 
@@ -127,7 +127,7 @@ public class ClienteServiceTest {
   }
 
   @Test
-  void shouldThrowClienteNotFoundExceptionWhenGetClienteByIdNotFound() {
+  void deveLancarClienteNotFoundExceptionQuandoGetClienteByIdNotFound() {
     when(clienteRepository.findById(1L)).thenReturn(Optional.empty());
 
     assertThrows(ClienteNotFoundException.class, () -> {

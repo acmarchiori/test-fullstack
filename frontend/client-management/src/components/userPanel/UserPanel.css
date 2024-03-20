@@ -1,29 +1,59 @@
+/* Estilo base */
 .user-info-container {
+  display: flex;
+  flex-direction: column;
+  margin: 0 10%; /* Margens laterais ajustadas para telas menores */
+}
+
+.user-info {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap; /* Permite que os elementos sejam envolvidos em telas menores */
+  margin-top: 50px; /* Reduzido o espaçamento superior */
+  margin-bottom: 20px; /* Reduzido o espaçamento inferior */
+}
+
+.user-icon {
+  width: 36px;
+  height: auto;
+  transform: scale(0.8);
+  margin-right: 20px; /* Reduzido o espaçamento para telas menores */
+}
+
+.user-info-title {
+  margin: 0;
+  font-weight: 375;
+  font-size: 26px;
+}
+
+.divider {
+  width: 100%;
+  border: none;
+  border-top: 1px solid #e0e0e0;
+  margin-top: 10px;
+}
+
+/* Media query para telas menores */
+@media (max-width: 768px) {
+  .user-info-container {
     display: flex;
-    flex-direction: column; /* Empilha os elementos verticalmente */
-    margin: 0 150px; /* Margens laterais */
+    margin: 0 16px; 
   }
   
   .user-info {
-    display: flex;
-    margin-top: 100px;
-    margin-bottom: 30px; /* Margem inferior */
+    justify-content: center;
+    margin-top: 10px; 
+    margin-bottom: 0px;
   }
-  
+
   .user-icon {
-    width: 36px; /* Largura do ícone */
-    margin-right: 30px; /* Margem à direita para separar o ícone do texto */
+    margin-right: 5px; /* Reduzido ainda mais o espaçamento para telas menores */
+    transform: scale(0.7);
   }
-  
+
   .user-info-title {
-    margin: 0; /* Remove as margens padrão do h1 */
-    font-weight: 375;
+    margin-top: 1px;
+    font-size: 21px; 
+    align-items: center;
   }
-  
-  .divider {
-    width: 100%; /* Define a largura total */
-    border: none; /* Remove a borda padrão */
-    border-top: 1px solid #e0e0e0; /* Adiciona uma linha horizontal */
-    margin-top: 10px; /* Margem superior para separar do conteúdo anterior */
-  }
-  
+}

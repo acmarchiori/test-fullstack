@@ -22,32 +22,32 @@ public class ClienteTest {
   }
 
   @Test
-  public void shouldReturnCorrectId() {
+  public void deveRetornarIdCorreto() {
     assertEquals(1L, cliente.getId());
   }
 
   @Test
-  public void shouldReturnCorrectName() {
+  public void deveRetornarNomeCorreto() {
     assertEquals("John Doe", cliente.getNome());
   }
 
   @Test
-  public void shouldReturnCorrectEmail() {
+  public void deveRetornarEmailCorreto() {
     assertEquals("john@example.com", cliente.getEmail());
   }
 
   @Test
-  public void shouldReturnCorrectCpf() {
+  public void deveRetornarCpfCorreto() {
     assertEquals("123.456.789-00", cliente.getCpf());
   }
 
   @Test
-  public void shouldReturnCorrectTelefone() {
+  public void deveRetornarTelefoneCorreto() {
     assertEquals("(11)99999-9999", cliente.getTelefone());
   }
 
   @Test
-  public void shouldReturnCorrectStatus() {
+  public void deveRetornarStatusCorreto() {
     assertEquals("Ativo", cliente.getStatus());
   }
 }

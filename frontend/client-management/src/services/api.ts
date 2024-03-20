@@ -15,8 +15,12 @@ interface Client {
 /**
  * Configuração da instância do axios para realizar requisições à API.
  */
-const api = axios.create({
-  baseURL: 'http://localhost:8080' // URL base da API
+const apiLocal = axios.create({
+  baseURL: 'http://localhost:8080/'
+})
+
+const apiProd = axios.create({
+  baseURL: 'https://client-management-api.fly.dev/'
 })
 
 /**
@@ -26,11 +30,17 @@ const api = axios.create({
  */
 export const getAllClients = async (): Promise<Client[]> => {
   try {
-    const response: AxiosResponse<Client[]> = await api.get('/clientes')
+    const response: AxiosResponse<Client[]> = await apiLocal.get('/clientes')
     return response.data
   } catch (error) {
-    console.error('Error fetching clients:', error)
-    throw error // Lança o erro para ser tratado pelo chamador
+    console.error('Error fetching clients from local server:', error)
+    try {
+      const response: AxiosResponse<Client[]> = await apiProd.get('/clientes')
+      return response.data
+    } catch (error) {
+      console.error('Error fetching clients from production server:', error)
+      throw error
+    }
   }
 }
 
@@ -40,12 +50,17 @@ export const getAllClients = async (): Promise<Client[]> => {
  * @param clientData Os dados do cliente a serem enviados para a API.
  * @returns Uma Promise que resolve quando a requisição é bem-sucedida.
  */
-export const createClient = async (clientData: any): Promise<void> => {
+export const createClient = async (clientData: Client): Promise<void> => {
   try {
-    await api.post('/clientes', clientData)
+    await apiLocal.post('/clientes', clientData)
   } catch (error) {
-    console.error('Error creating client:', error)
-    throw error
+    console.error('Error creating client on local server:', error)
+    try {
+      await apiProd.post('/clientes', clientData)
+    } catch (error) {
+      console.error('Error creating client on production server:', error)
+      throw error
+    }
   }
 }
 
@@ -56,12 +71,17 @@ export const createClient = async (clientData: any): Promise<void> => {
  * @param clientData Os novos dados do cliente.
  * @returns Uma Promise que resolve quando a requisição é bem-sucedida.
  */
-export const updateClient = async (clientId: number, clientData: any): Promise<void> => {
+export const updateClient = async (clientId: number, clientData: Client): Promise<void> => {
   try {
-    await api.put(`/clientes/${clientId}`, clientData)
+    await apiLocal.put(`/clientes/${clientId}`, clientData)
   } catch (error) {
-    console.error('Error updating client:', error)
-    throw error
+    console.error('Error updating client on local server:', error)
+    try {
+      await apiProd.put(`/clientes/${clientId}`, clientData)
+    } catch (error) {
+      console.error('Error updating client on production server:', error)
+      throw error
+    }
   }
 }
 
@@ -73,10 +93,16 @@ export const updateClient = async (clientId: number, clientData: any): Promise<v
  */
 export const getClientById = async (clientId: number): Promise<Client> => {
   try {
-    const response: AxiosResponse<Client> = await api.get(`/clientes/${clientId}`)
+    const response: AxiosResponse<Client> = await apiLocal.get(`/clientes/${clientId}`)
     return response.data
   } catch (error) {
-    console.error('Error fetching client by ID:', error)
-    throw error
+    console.error('Error fetching client by ID from local server:', error)
+    try {
+      const response: AxiosResponse<Client> = await apiProd.get(`/clientes/${clientId}`)
+      return response.data
+    } catch (error) {
+      console.error('Error fetching client by ID from production server:', error)
+      throw error
+    }
   }
 }

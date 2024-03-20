@@ -32,76 +32,91 @@ public class ClienteControllerTest {
   }
 
   @Test
-  public void shouldListAllClients() {
-    ClienteDto clienteDto = new ClienteDto(1, "Test Name", "test@email.com", "123.456.789-01", "(13)3471-1189", "Ativo");
+  public void deveriaListarTodosOsClientes() {
+    ClienteDto clienteDto = new ClienteDto(1, "Nome de Teste", "teste@email.com", "123.456.789-01",
+        "(13)3471-1189", "Ativo");
     when(clienteService.listarClientes()).thenReturn(Arrays.asList(clienteDto));
 
-    ResponseEntity<List<ClienteDto>> response = clienteController.listarClientes();
+    ResponseEntity<List<ClienteDto>> resposta = clienteController.listarClientes();
 
-    assertEquals(HttpStatus.OK, response.getStatusCode());
-    assertEquals(1, response.getBody().size());
+    assertEquals(HttpStatus.OK, resposta.getStatusCode());
+    assertEquals(1, resposta.getBody().size());
   }
 
   @Test
-  public void shouldGetClientById() throws ClienteNotFoundException {
-    ClienteDto clienteDto = new ClienteDto(1, "Test Name", "test@email.com", "123.456.789-01", "(13)3471-1189", "Ativo");
+  public void deveriaObterClientePorId() throws ClienteNotFoundException {
+    ClienteDto clienteDto = new ClienteDto(1, "Nome de Teste", "teste@email.com", "123.456.789-01",
+        "(13)3471-1189", "Ativo");
     when(clienteService.getClienteById(anyLong())).thenReturn(clienteDto);
 
-    ResponseEntity<?> response = clienteController.obterClientePorId(1L);
+    ResponseEntity<?> resposta = clienteController.obterClientePorId(1L);
 
-    assertEquals(HttpStatus.OK, response.getStatusCode());
-    assertEquals(clienteDto, response.getBody());
+    assertEquals(HttpStatus.OK, resposta.getStatusCode());
+    assertEquals(clienteDto, resposta.getBody());
   }
 
   @Test
-  public void shouldCreateClient() throws ValidacaoException {
-    ClienteDto clienteDto = new ClienteDto(1, "Test Name", "test@email.com", "123.456.789-01", "(13)3471-1189", "Ativo");
+  public void deveriaCriarCliente() throws ValidacaoException {
+    ClienteDto clienteDto = new ClienteDto(1, "Nome de Teste", "teste@email.com", "123.456.789-01",
+        "(13)3471-1189", "Ativo");
     when(clienteService.cadastrarCliente(any(ClienteDto.class))).thenReturn(clienteDto);
 
-    ResponseEntity<?> response = clienteController.cadastrarCliente(clienteDto);
+    ResponseEntity<?> resposta = clienteController.cadastrarCliente(clienteDto);
 
-    assertEquals(HttpStatus.CREATED, response.getStatusCode());
-    assertEquals(clienteDto, response.getBody());
+    assertEquals(HttpStatus.CREATED, resposta.getStatusCode());
+    assertEquals(clienteDto, resposta.getBody());
   }
 
   @Test
-  public void shouldReturnBadRequestWhenCreatingInvalidClient() throws ValidacaoException {
-    when(clienteService.cadastrarCliente(any(ClienteDto.class))).thenThrow(new ValidacaoException("Invalid CPF"));
+  public void deveriaRetornarBadRequestAoCriarClienteInvalido() throws ValidacaoException {
+    when(clienteService.cadastrarCliente(any(ClienteDto.class))).thenThrow(
+        new ValidacaoException("CPF Inválido"));
 
-    ResponseEntity<?> response = clienteController.cadastrarCliente(new ClienteDto(1, "Test Name", "test@email.com", "123.456.789-01", "(13)3471-1189", "Ativo"));
+    ResponseEntity<?> resposta = clienteController.cadastrarCliente(
+        new ClienteDto(1, "Nome de Teste", "teste@email.com", "123.456.789-01", "(13)3471-1189",
+            "Ativo"));
 
-    assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
-    assertEquals("Invalid CPF", response.getBody());
+    assertEquals(HttpStatus.BAD_REQUEST, resposta.getStatusCode());
+    assertEquals("CPF Inválido", resposta.getBody());
   }
 
   @Test
-  public void shouldUpdateClient() throws ValidacaoException, ClienteNotFoundException {
-    ClienteDto clienteDto = new ClienteDto(1, "Test Name", "test@email.com", "123.456.789-01", "(13)3471-1189", "Ativo");
+  public void deveriaAtualizarCliente() throws ValidacaoException, ClienteNotFoundException {
+    ClienteDto clienteDto = new ClienteDto(1, "Nome de Teste", "teste@email.com", "123.456.789-01",
+        "(13)3471-1189", "Ativo");
     when(clienteService.atualizarCliente(anyLong(), any(ClienteDto.class))).thenReturn(clienteDto);
 
-    ResponseEntity<?> response = clienteController.atualizarCliente(1L, clienteDto);
+    ResponseEntity<?> resposta = clienteController.atualizarCliente(1L, clienteDto);
 
-    assertEquals(HttpStatus.OK, response.getStatusCode());
-    assertEquals(clienteDto, response.getBody());
+    assertEquals(HttpStatus.OK, resposta.getStatusCode());
+    assertEquals(clienteDto, resposta.getBody());
   }
 
   @Test
-  public void shouldReturnBadRequestWhenUpdatingInvalidClient() throws ValidacaoException, ClienteNotFoundException {
-    when(clienteService.atualizarCliente(anyLong(), any(ClienteDto.class))).thenThrow(new ValidacaoException("Invalid CPF"));
+  public void deveriaRetornarBadRequestAoAtualizarClienteInvalido()
+      throws ValidacaoException, ClienteNotFoundException {
+    when(clienteService.atualizarCliente(anyLong(), any(ClienteDto.class))).thenThrow(
+        new ValidacaoException("CPF Inválido"));
 
-    ResponseEntity<?> response = clienteController.atualizarCliente(1L, new ClienteDto(1, "Test Name", "test@email.com", "123.456.789-01", "(13)3471-1189", "Ativo"));
+    ResponseEntity<?> resposta = clienteController.atualizarCliente(1L,
+        new ClienteDto(1, "Nome de Teste", "teste@email.com", "123.456.789-01", "(13)3471-1189",
+            "Ativo"));
 
-    assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
-    assertEquals("Invalid CPF", response.getBody());
+    assertEquals(HttpStatus.BAD_REQUEST, resposta.getStatusCode());
+    assertEquals("CPF Inválido", resposta.getBody());
   }
 
   @Test
-  public void shouldReturnNotFoundWhenUpdatingNonExistentClient() throws ValidacaoException, ClienteNotFoundException {
-    when(clienteService.atualizarCliente(anyLong(), any(ClienteDto.class))).thenThrow(new ClienteNotFoundException("Client not found"));
+  public void deveriaRetornarNotFoundAoAtualizarClienteInexistente()
+      throws ValidacaoException, ClienteNotFoundException {
+    when(clienteService.atualizarCliente(anyLong(), any(ClienteDto.class))).thenThrow(
+        new ClienteNotFoundException("Cliente não encontrado"));
 
-    ResponseEntity<?> response = clienteController.atualizarCliente(1L, new ClienteDto(1, "Test Name", "test@email.com", "123.456.789-01", "(13)3471-1189", "Ativo"));
+    ResponseEntity<?> resposta = clienteController.atualizarCliente(1L,
+        new ClienteDto(1, "Nome de Teste", "teste@email.com", "123.456.789-01", "(13)3471-1189",
+            "Ativo"));
 
-    assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
-    assertEquals("Client not found", response.getBody());
+    assertEquals(HttpStatus.NOT_FOUND, resposta.getStatusCode());
+    assertEquals("Cliente não encontrado", resposta.getBody());
   }
 }

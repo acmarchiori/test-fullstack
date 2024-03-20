@@ -10,6 +10,12 @@ services:
       - "8080:8080"
     volumes:
       - ./backend/client-management-api:/app-backend
+    environment:
+      - DB_HOSTNAME=tryber-trybe-track-db.internal
+      - DB_PORT=5432
+      - DB_USER=postgres
+      - DB_PASSWORD=L7Y61neO0tsj87h
+      - DB_NAME=tryber_trybe_track
 
   frontend:
     image: frontend
@@ -20,3 +26,4 @@ services:
       - "3000:3000"
     volumes:
       - ./frontend/client-management:/app-frontend
+

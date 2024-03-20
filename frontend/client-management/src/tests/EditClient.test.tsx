@@ -5,8 +5,6 @@ import { render, screen, waitFor, fireEvent } from '@testing-library/react'
 import App from '../App'
 import '@testing-library/jest-dom'
 import clientesMock from './mock/clientesMock'
-import { MemoryRouter } from 'react-router-dom'
-import { createMemoryHistory } from 'history';
 
 describe('Teste da Pagina de Edição/Criação de Clientes "/clientes" e "/clientes/id"', () => {
   let mock: MockAdapter

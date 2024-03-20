@@ -13,7 +13,7 @@ const UserPanel: React.FC = () => {
     <div className="user-info-container">
       <div className="user-info">
         <img src={userIcon} alt="User Icon" className="user-icon" />
-        <h1 className="user-info-title">Painel de Clientes</h1>
+        <h1 className="user-info-title">Painel de clientes</h1>
       </div>
       <hr className="divider" />
     </div>

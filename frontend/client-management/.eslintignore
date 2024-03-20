@@ -4,6 +4,7 @@ apiMock.ts
 api.test.ts
 UserContext.test.tsx
 jest.config.js
+EditClient.test.tsx
 
 # Ignorar arquivos de teste
 **/__tests__/**

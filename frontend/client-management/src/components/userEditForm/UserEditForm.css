@@ -83,3 +83,50 @@
     font-size: 12px;
     margin-top: -12px;
 }
+
+/* Media query para telas menores */
+@media (max-width: 768px) {
+    .user-edit-form {
+        margin: 0 16px; /* Reduz as margens laterais para telas menores */
+    }
+
+    .user-edit-form p {
+        font-size: 16px;
+        margin-bottom: 25px; /* Reduz a margem inferior do parágrafo para telas menores */
+    }
+
+    .user-edit-form h2 {
+        font-size: 16px;
+    }
+
+    .user-edit-form input {
+        padding: 10px auto; /* Reduz o preenchimento dos inputs para telas menores */
+        width: 80%; 
+    }
+
+    .user-edit-form select {
+        padding: 10px auto; /* Reduz o preenchimento dos selects para telas menores */
+        width: 91%; 
+        margin-bottom: 25px; /* Reduz a margem inferior dos selects para telas menores */
+    }
+
+    .button-container {
+        display: flex; 
+        justify-content: space-between; 
+        margin-top: 30px; 
+        margin-right: 33px;
+    }
+    .user-edit-form .button-create,
+    .user-edit-form .button-back {
+        width: calc(50% - 15px); 
+    }
+
+    .error-message {
+        margin-top: -12px; 
+    }
+
+    .user-edit-form select {
+        background-position: 280px center;
+        
+    }
+}

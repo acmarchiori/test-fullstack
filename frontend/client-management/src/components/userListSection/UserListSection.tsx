@@ -18,7 +18,7 @@ const UserListSection: React.FC = () => {
         <p>Escolha um cliente para visualizar os detalhes</p>
       </div>
       <div>
-        <button type="button" onClick={() => { history.push('/clientes') }}>Novo cliente</button>
+        <button className='button' type="button" onClick={() => { history.push('/clientes') }}>Novo cliente</button>
       </div>
     </div>
   )

@@ -1,68 +1,138 @@
 .client-info {
-    color: #b3b3b3;
+  color: #b3b3b3;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #e6e6e6; /* Adiciona uma borda cinza */
+  padding: 20px; /* Espaçamento interno */
+  margin: 0 150px; /* Margens laterais */
+  margin-bottom: 25px;
+}
+
+.first-column,
+.second-column,
+.third-column {
+  flex: 1; /* Cada coluna ocupa a mesma largura */
+}
+
+.status-dot {
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 10px; 
+}  
+
+/* Defina as cores para cada status */
+.status-dot.active {
+  background-color: green;
+}
+
+.status-dot.inactive {
+  background-color: red;
+}
+
+.status-dot.awaiting-activation {
+  background-color: yellow;
+}
+
+.status-dot.disabled {
+  background-color: #b3b3b3;
+}
+
+.edit-button {
+  background-color: white;
+  color: #DF9408;
+  border: 1px solid #DF9408; /* Adiciona uma borda laranja */
+  border-radius: 5px;
+  font-size: 16px;
+  padding: 12px 40px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.3s, color 0.3s; /* Transição suave */
+}
+
+.edit-button:hover {
+  background-color: #DF9408; /* Ao passar o mouse, fundo laranja */
+  color: white; /* Ao passar o mouse, texto branco */
+}
+
+.edit-button:hover {
+  cursor: pointer; /* Ao passar o mouse, cursor de mãozinha */
+}
+
+.strong {
+  color: #7a7a7a;
+  font-weight: 550;
+}
+
+@media (max-width: 768px) {
+.client-info {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border: 1px solid #e6e6e6; /* Adiciona uma borda cinza */
-    padding: 20px; /* Espaçamento interno */
-    margin: 0 150px; /* Margens laterais */
-    margin-bottom: 25px;
+    align-items: flex-start;
+    flex-direction: column; 
+    padding: 10px 10px 23px 10px; /* Espaçamento interno reduzido */
+    margin: 0 16px; 
+    margin-bottom: 15px;
   }
-  
-  .first-column,
-  .second-column,
+
+.status-dot {
+  margin-right: 0; /* Remove a margem direita para os pontos de status em telas menores */
+    margin-bottom: 10px; 
+  }
+
+  .edit-button {
+    font-size: 14px;
+    padding: 7px 33px;
+  }
+
+  .first-column {
+    display: flex;
+    flex-direction: column;
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+
+  .first-column span:first-child {
+    margin-bottom: 5px;
+  }
+
+  .second-column {
+    display: flex;
+    flex-direction: column;
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+
+  .second-column span:first-child {
+    margin-bottom: 5px;
+  }
+
   .third-column {
-    flex: 1; /* Cada coluna ocupa a mesma largura */
+    display: flex;
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+
+  .third-column span:first-child {
+    margin-right: 10px;
+  }
+
+  .client-info .fourth-column {
+    display: block;
+    text-align: center; 
+    margin: auto; 
+    font-size: 14px;
+  }
+
+  br {
+    display: none;
   }
 
   .status-dot {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    display: inline-block;
-    margin-right: 10px; 
+    width: 15px;
+    height: 15px;
   }  
-  
-  /* Defina as cores para cada status */
-  .status-dot.active {
-    background-color: green;
-  }
-  
-  .status-dot.inactive {
-    background-color: red;
-  }
-  
-  .status-dot.awaiting-activation {
-    background-color: yellow;
-  }
-  
-  .status-dot.disabled {
-    background-color: #b3b3b3;
-  }
-  
-  .edit-button {
-    background-color: white;
-    color: #DF9408;
-    border: 1px solid #DF9408; /* Adiciona uma borda laranja */
-    border-radius: 5px;
-    font-size: 16px;
-    padding: 12px 40px;
-    cursor: pointer;
-    text-decoration: none;
-    transition: background-color 0.3s, color 0.3s; /* Transição suave */
-  }
-  
-  .edit-button:hover {
-    background-color: #DF9408; /* Ao passar o mouse, fundo laranja */
-    color: white; /* Ao passar o mouse, texto branco */
-  }
-  
-  .edit-button:hover {
-    cursor: pointer; /* Ao passar o mouse, cursor de mãozinha */
-  }
+}
 
-  .strong {
-    color: #7a7a7a;
-    font-weight: 550;
-  }
-  
+
