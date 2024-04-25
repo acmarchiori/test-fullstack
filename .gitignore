@@ -34,3 +34,6 @@ build/
 
 # Node.js
 node_modules/
+
+# Cobertura de código Frontend
+/frontend/coverage/
