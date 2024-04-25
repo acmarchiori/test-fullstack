@@ -1,0 +1,133 @@
+.user-edit-form {
+    margin: 0 150px;
+}
+
+.user-edit-form h2 {
+    color: #7a7a7a;
+    margin-bottom: 10px;
+    font-size: 18px;
+    font-weight: 550;
+}
+
+.user-edit-form p {
+    color: #b3b3b3;
+    margin-bottom: 45px;
+}
+
+.user-edit-form input {
+    border: 2px solid #c2c2c2;
+    border-radius: 5px;
+    color: #b3b3b3;
+    font-weight: 500;
+    font-size: 16px;
+    padding: 16px 25px;
+    padding-left: 12px;
+    margin-bottom: 15px;
+}
+
+.user-edit-form select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: #ffffff;
+    background-image: url('/public/images/seta.png');
+    background-repeat: no-repeat;
+    background-size: 16px 20px;
+    background-position: 210px center;
+    border: 2px solid #c2c2c2;
+    border-radius: 5px;
+    color: #b3b3b3;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 16px 80px;
+    padding-left: 12px;
+    margin-bottom: 70px;
+}
+
+.user-edit-form select::-ms-expand {
+    display: none;
+}
+
+.user-edit-form input::placeholder {
+    color: #b3b3b3;
+    font-weight: 500;
+    font-size: 16px;
+    text-align: left;
+    padding-left: -50px;
+}
+
+.button-back {
+    background-color: white;
+    color: #DF9408;
+    border: 1px solid #DF9408; /* Adiciona uma borda laranja */
+    border-radius: 5px;
+    font-size: 16px;
+    padding: 11px 39px;
+    cursor: pointer;
+}
+
+.button-create {
+    background-color: #DF9408;
+    color: white;
+    border-radius: 5px;
+    font-size: 16px;
+    margin-right: 20px;
+    padding: 12px 43px;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+}
+
+/* Estilo para o botão quando está desabilitado */
+.button-create:disabled {
+    cursor: not-allowed; /* Altera o cursor para 'não permitido' */
+}
+
+.error-message {
+    color: #b3b3b3;
+    font-size: 12px;
+    margin-top: -12px;
+}
+
+/* Media query para telas menores */
+@media (max-width: 768px) {
+    .user-edit-form {
+        margin: 0 16px; /* Reduz as margens laterais para telas menores */
+    }
+
+    .user-edit-form p {
+        font-size: 16px;
+        margin-bottom: 25px; /* Reduz a margem inferior do parágrafo para telas menores */
+    }
+
+    .user-edit-form h2 {
+        font-size: 16px;
+    }
+
+    .user-edit-form input {
+        padding: 10px auto; /* Reduz o preenchimento dos inputs para telas menores */
+        width: 80%; 
+    }
+
+    .user-edit-form select {
+        padding: 10px auto; /* Reduz o preenchimento dos selects para telas menores */
+        width: 91%; 
+        margin-bottom: 25px; /* Reduz a margem inferior dos selects para telas menores */
+    }
+
+    .button-container {
+        display: flex; 
+        justify-content: space-between; 
+        margin-top: 30px; 
+        margin-right: 33px;
+    }
+
+    .error-message {
+        margin-top: -12px; 
+    }
+
+    .user-edit-form select {
+        background-position: 280px center;
+        
+    }
+}
