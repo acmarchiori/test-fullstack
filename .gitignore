@@ -33,7 +33,7 @@ build/
 .vscode/
 
 # Node.js
-node_modules/
+/frontend/node_modules/
 
 # Cobertura de código Frontend
 /frontend/coverage/
