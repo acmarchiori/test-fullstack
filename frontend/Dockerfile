@@ -13,6 +13,9 @@ RUN npm install
 # Copiar o restante dos arquivos da aplicação para o container
 COPY . .
 
+# Alterar o proprietário do diretório /app-frontend para o usuário node
+RUN chown -R node:node /app-frontend
+
 # Sinalize que aplicação expõe a porta 3000
 EXPOSE 3000
 

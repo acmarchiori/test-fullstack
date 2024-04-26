@@ -1,5 +1,4 @@
 import axios from 'axios'
-import React from 'react'
 import MockAdapter from 'axios-mock-adapter'
 import api from './mock/apiMock'
 import { render, screen, waitFor, fireEvent } from '@testing-library/react'

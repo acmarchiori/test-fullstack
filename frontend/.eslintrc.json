@@ -19,6 +19,6 @@
     "rules": {},
     "ignorePatterns": [
         "jest.config.js",
-        "src/tests/EditClient.test.tsx"
+        "src/tests/*"
     ]
 }
