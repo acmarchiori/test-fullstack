@@ -36,8 +36,8 @@ Este é um projeto fullstack desenvolvido como parte de um teste para a vaga de 
 
 - **Testes**:
   - JUnit: Framework de testes para Java.
-  -`mvn test`: Roda os testes do backend.
-  -`mvn clean test jacoco:report`: Roda os testes de cobertura do backend.
+  - `mvn test`: Roda os testes do backend.
+  - `mvn clean test jacoco:report`: Roda os testes de cobertura do backend.
 
 Há um README especifico para o backend na pasta /backend com as tipos de validações e formato das requisições.
 
