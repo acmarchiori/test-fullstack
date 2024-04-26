@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
  * ClienteController.
  */
 @RestController
-@CrossOrigin(origins = {"http://localhost:3000", "https://marchiori-app-gerenciamento-clientes.surge.sh"})
+@CrossOrigin(origins = "*")
 @RequestMapping("/clientes")
 public class ClienteController {
 

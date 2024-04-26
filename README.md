@@ -17,6 +17,7 @@ Este é um projeto fullstack desenvolvido como parte de um teste para a vaga de 
   - Formik: Para validação de formulários.
   - Yup: Para definição de esquemas de validação.
   - React Input Mask: Para aplicar máscaras em inputs.
+  - SweetAlert2: Para exibir modais e alertas personalizados.
 
 - **Testes**:
   - Jest: Framework de testes.
@@ -35,6 +36,10 @@ Este é um projeto fullstack desenvolvido como parte de um teste para a vaga de 
 
 - **Testes**:
   - JUnit: Framework de testes para Java.
+  -`mvn test`: Roda os testes do backend.
+  -`mvn clean test jacoco:report`: Roda os testes de cobertura do backend.
+
+Há um README especifico para o backend na pasta /backend com as tipos de validações e formato das requisições.
 
 ## Scripts (Frontend)
 
@@ -42,7 +47,8 @@ Para executar os scripts do frontend, você precisará do npm instalado em sua m
 
 - `npm start`: Inicia o servidor de desenvolvimento do frontend.
 - `npm run build`: Compila o projeto para produção.
-- `npm test`: Executa os testes do frontend com cobertura.
+- `npm test`: Executa os testes do frontend.
+- `npm run coverage`: Executa os testes de cobertura do frontend.
 - `npm run eject`: Ejeta a configuração do webpack para personalização avançada.
 - `npm run lint`: Executa o ESLint para análise estática do código.
 
@@ -59,10 +65,12 @@ Para executar a aplicação, siga os seguintes passos:
 
 A aplicação está publicada na seguinte URL:
 - Frontend: [https://marchiori-app-gerenciamento-clientes.surge.sh/](https://marchiori-app-gerenciamento-clientes.surge.sh/)
+- Frontend: [https://cadastro-clientes-frontend.vercel.app//](https://cadastro-clientes-frontend.vercel.app//)
 - Backend: [https://client-management-api.fly.dev/](https://client-management-api.fly.dev/)
 
 Para o deploy, foram utilizadas as seguintes ferramentas:
 - **Frontend**: Surge.sh
+- **Frontend**: Vercel
 - **Backend**: Fly.io
 
 ## Rodando o Backend Localmente (Java)

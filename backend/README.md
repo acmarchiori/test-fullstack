@@ -2,6 +2,17 @@
 
 O backend foi desenvolvido em Java utilizando o Spring Framework. O banco de dados utilizado é o SQLite com o Spring Data JPA para interação.
 
+# Validações
+
+Aqui estão as validações realizadas nos dados do cliente:
+
+
+- **Nome:** Deve ter entre 2 e 100 caracteres e conter apenas letras, espaços, hífens e apóstrofos.
+- **Email:** Deve ser um email válido e único.
+- **CPF:** Deve ter o formato "XXX.XXX.XXX-XX" e ser único.
+- **Telefone:** Deve ter o formato "(XX)XXXXX-XXXX" ou "(XX)XXXX-XXXX".
+- **Status:** Deve ser um dos seguintes valores: "Ativo", "Inativo", "Aguardando ativação" ou "Desativado".
+
 ## Tecnologias Principais:
 
 - Java
@@ -154,16 +165,5 @@ A rota PUT `/clientes/{id}` é utilizada para atualizar informações de um clie
 	"status": "Inativo"
 }
 ```
-
-# Validações
-
-Aqui estão as validações realizadas nos dados do cliente:
-
-
-- **Nome:** Deve ter entre 2 e 100 caracteres e conter apenas letras, espaços, hífens e apóstrofos.
-- **Email:** Deve ser um email válido e único.
-- **CPF:** Deve ter o formato "XXX.XXX.XXX-XX" e ser único.
-- **Telefone:** Deve ter o formato "(XX)XXXXX-XXXX" ou "(XX)XXXX-XXXX".
-- **Status:** Deve ser um dos seguintes valores: "Ativo", "Inativo", "Aguardando ativação" ou "Desativado".
 
 
